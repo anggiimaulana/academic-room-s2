@@ -1,10 +1,13 @@
-<!-- <?php 
+# Struktur Kode
+<?php 
     // Tulis kode disini
-?> -->
+?>
 
-<!-- <?php echo "Hello World!" ?> -->
+# Syntax pertama
+<?php echo "Hello World!" ?>
 
-<!-- <?php
+# Komentar
+<?php
 // Komentar satu baris
 
 # Komentar satu baris
@@ -15,7 +18,7 @@
    catatan panjang.
 */
 
-?> -->
+?>
 
 # Type data 
 <?php
@@ -85,5 +88,33 @@
             break;
         default:
             echo "Warna favorit Anda tidak dikenal.";
+    }
+?>
+
+# Looping
+<?php 
+    # While Loop
+    $i = 1;
+    while ($i <= 5) {
+        echo $i;
+        $i++;
+    }
+
+    # Do-While Loop
+    $i = 1;
+    do {
+        echo $i;
+        $i++;
+    } while ($i <= 5);
+
+    # For Loop
+    for ($i = 1; $i <= 5; $i++) {
+        echo $i;
+    }
+
+    # Foreach Loop
+    $array = array("Apel", "Pisang", "Mangga");
+    foreach ($array as $buah) {
+        echo $buah;
     }
 ?>
