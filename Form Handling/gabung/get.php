@@ -5,9 +5,7 @@ if (isset($_GET['submit'])) {
     $email = $_GET['email'];
 
     // Validasi sederhana
-    if (empty($nama) || empty($email)) {
-        echo "<p style='color:red;'>Nama dan Email wajib diisi.</p>";
-    } else {
+    if (!empty($nama) || empty($email)) {
         echo "<p style='color:green;'>Data berhasil dikirim!</p>";
         echo "<p>Nama: $nama</p>";
         echo "<p>Email: $email</p>";
@@ -25,10 +23,10 @@ if (isset($_GET['submit'])) {
 <body>
     <form method="GET" action="">
         <label for="nama">Nama:</label>
-        <input type="text" id="nama" name="nama"><br><br>
+        <input type="text" id="nama" name="nama" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
+        <input type="email" id="email" name="email" required><br><br>
 
         <button type="submit" name="submit">Kirim</button>
     </form>
