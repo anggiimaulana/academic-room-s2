@@ -8,10 +8,10 @@
 <body>
     <form method="POST" action="proses.php">
         <label for="nama">Nama:</label>
-        <input type="text" id="nama" name="nama"><br><br>
+        <input type="text" id="nama" name="nama" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
+        <input type="email" id="email" name="email" required><br><br>
 
         <button type="submit" name="submit">Kirim</button>
     </form>
