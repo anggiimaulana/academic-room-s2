@@ -2,20 +2,20 @@
     require '../db.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $email = $_POST['email'];
+        $username = $_POST['username'];
         $password = $_POST['password'];
 
         // Tidak aman karena data langsung diintegrasikan ke query SQL
-        $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             session_start();
-            $_SESSION['email'] = $email;
+            $_SESSION['username'] = $username;
             header("Location: dashboard.php");
             exit;
         } else {
-            echo "Invalid email or password!";
+            echo "Invalid username or password!";
         }
     }
 ?>
@@ -31,12 +31,12 @@
             <div class="p-4">
                 <form method="POST">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email" required>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password" >
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>

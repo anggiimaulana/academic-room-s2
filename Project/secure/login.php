@@ -2,12 +2,12 @@
 require '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = htmlspecialchars($_POST['email']);
+    $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
 
     // Aman dengan Prepared Statement
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt = $conn->prepare("SELECT username, password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -16,14 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Verifikasi password yang di-hash dengan password yang dimasukkan
         if (password_verify($password, $user['password'])) {
             session_start();
-            $_SESSION['email'] = $email;
+            $_SESSION['username'] = $username;
             header("Location: dashboard.php");
             exit;
         } else {
-            echo "Invalid email or password!";
+            echo "Invalid username or password!";
         }
     } else {
-        echo "Invalid email or password!";
+        echo "Invalid username or password!";
     }
 }
 ?>
@@ -39,12 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="p-4 ">
                 <form method="POST">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email" required>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password" >
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>

@@ -1,27 +1,23 @@
 <?php
-session_start();
-if (!isset($_SESSION['email'])) {
-    header("Location: login_vulnerable.php"); // Redirect if not logged in
-    exit;
-}
+    session_start();
+    if (!isset($_SESSION['username'])) {
+        header("Location: login.php");
+        exit;
+    }
 
-require '../db.php';
-$email = $_SESSION['email'];
+    require '../db.php';
+    $username = $_SESSION['username'];
 
-// Mencegah SQL Injection dengan menggunakan Prepared Statement
-$stmt = $conn->prepare("SELECT username FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+    $query = "SELECT username, email FROM users WHERE username = '$username'";
+    $result = $conn->query($query);
 
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-    $username = $user['username'];
-} else {
-    $username = "User not found";
-}
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        $email = $user['email'];
+    } else {
+        $email = "Email not found";
+    }
 
-$stmt->close();
 ?>
 
 <?php require '../template/header.php'; ?>
@@ -66,8 +62,8 @@ $stmt->close();
 
     <div class="container py-4">
         <div class="card shadow p-4 rounded-4">
-            <h1 class="fw-bold text-primary">Welcome, <?php echo htmlspecialchars($username); ?> 👋</h1>
-            <p class="fs-5 text-muted">Anda login dengan email: <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['email']); ?></span></p>
+            <h1 class="fw-bold text-primary">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> 👋</h1>
+            <p class="fs-5 text-muted">Anda login dengan email: <span class="fw-bold"><?php echo htmlspecialchars($email); ?></span></p>
             <a href="logout.php" class="btn btn-danger mt-3 w-25 rounded-4">Logout</a>
         </div>
     </div>
